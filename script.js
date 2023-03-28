@@ -3,7 +3,7 @@ let counter = 0;
 let cardOne, cardTwo, cardOneIndex, cardTwoIndex;
 let temp;
 let timer = document.querySelector('.timer');
-let intervalID;
+let intervalID,winCounter=0;
 let flag = null;
 let isChecking = false;
 
@@ -18,6 +18,7 @@ function clickHandler(event){
          intervalId = setInterval(function(){
             timer.innerText = timer.innerText - 1;
             checkTimer();
+            checkResult();
           },1000)
     }
 
@@ -53,12 +54,32 @@ if(counter>=2){
 
 }
 
+
 function checkTimer(){
     if(timer.innerHTML==0){
         clearInterval(intervalId);
     }
+
 }
 
+
+
+function checkResult() {
+    winCounter = 0;
+    for (card of cards) {
+        if (card.style.visibility == "hidden") {
+            winCounter++;
+        }
+    }
+    
+    if (winCounter === 20) {
+        timer.innerText = "You Win";
+        clearInterval(intervalId);
+    } else if (timer.innerText == "0") {
+        timer.innerText = "You Lose";
+        clearInterval(intervalId);
+    }
+}
 
 
 
